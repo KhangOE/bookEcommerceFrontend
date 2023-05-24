@@ -48,16 +48,8 @@ export const UProducts = ({ itemsPerPage = 20 }) => {
     sorting: 2,
   });
   const location = useLocation();
-  useEffect(() => {
-    // console.log(currentItems, "curr");
-  }, [currentItems]);
-
-  useEffect(() => {
-    console.log(location, "location");
-    if (location.query) {
-      console.log(location.query, "querqe");
-    }
-  }, []);
+  
+ 
   const submitFilter = () => {
     dispatch(getProduct(filter));
   };
@@ -76,7 +68,6 @@ export const UProducts = ({ itemsPerPage = 20 }) => {
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % product.length;
-    // console.log(
     //   `User requested page number ${event.selected}, which is offset ${newOffset}`
     // );
     setItemOffset(newOffset);

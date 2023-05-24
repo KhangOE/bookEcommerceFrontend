@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./index.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Home } from "./page/user/Home";
 import { Cart } from "./page/user/Cart";
 import { Layout } from "./layout/userLayout";
@@ -29,14 +29,13 @@ import { Profile } from "./page/user/profile";
 import { Search } from "./page/user/searching";
 import { Oder } from "./page/user/oder";
 import { ProtectedRouteAdmin, ProtectedRouteAuth } from "./utils/protectRoute";
+import { useState } from "react";
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
+  const [role, setRole] = useState("user");
 
   useEffect(() => {
     if (localStorage.getItem("token") === "null") {
@@ -55,33 +54,30 @@ function App() {
       })();
     }
   }, [dispatch]);
+  // if (currentUser?.role?.name == "admin") {
+  //   return navigate("/admin");
+  // }
   return (
-    <div>
+    <div className="App ">
       <ThemeContext>
         <Routes>
           <Route
-            path="/"
-            element={
-              <ProtectedRouteAdmin
-                user={currentUser?.role.name}
-              ></ProtectedRouteAdmin>
-            }
+            path="/admin/"
+            element={<AdminLayout role={currentUser?.role?.name} />}
           >
-            <Route path="admin" element={<AdminLayout />}>
-              <Route path="use" element={<ProfileUSer />} />
-              <Route path="users" element={<ListUser />} />
-              <Route path="products" element={<Products />} />
-              <Route path="addproduct" element={<Addproduct />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="users/:id" element={<UserDetail />} />
-              <Route path="orderDetail" element={<OrderDetail />} />
-              <Route path="orders" element={<OrderList />} />
-              <Route path="editProduct" element={<Editproduct />} />
-              <Route index element={<Dashboard />} />
-            </Route>
+            <Route path="use" element={<ProfileUSer />} />
+            <Route path="users" element={<ListUser />} />
+            <Route path="products" element={<Products />} />
+            <Route path="addproduct" element={<Addproduct />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="users/:id" element={<UserDetail />} />
+            <Route path="orderDetail" element={<OrderDetail />} />
+            <Route path="orders" element={<OrderList />} />
+            <Route path="editProduct" element={<Editproduct />} />
+            <Route index element={<Dashboard />} />
           </Route>
 
-          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Layout role={currentUser?.role?.name} />}>
             <Route path="products" element={<UProducts />} />
             <Route path="search/:query" element={<Search />} />
             <Route path="products/:id" element={<ProductItem />} />

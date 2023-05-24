@@ -1,9 +1,13 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import { Header } from "../components/user/header";
 import { Footer } from "../components/user/footer";
 
-export const Layout = () => {
+export const Layout = (props) => {
+  const navigate = useNavigate();
+  // if (props.role == "admin") {
+  //   return navigate("/admin");
+  // }
   return (
     <>
       <div className=" min-h-screen flex flex-col justify-between bg-[#F5F5FA] z-10 ">
