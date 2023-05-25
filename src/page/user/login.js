@@ -27,8 +27,8 @@ export const Login = () => {
 
   const formik = useFormik({
     initialValues: {
-      email: "user@gmail.com",
-      password: "123456",
+      email: "",
+      password: "",
     },
     onSubmit: async (value) => {
       setLoading(true);
