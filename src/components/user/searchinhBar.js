@@ -10,10 +10,7 @@ export const SearchinhBar = () => {
     }
   };
   return (
-    <div className="flex border border-gray-200 rounded-md p-2 mx-8">
-      <div className="px-2 flex items-center">
-        <span class="material-symbols-outlined ">search </span>
-      </div>
+    <div className="flex border border-gray-200 rounded-md p-2 w-full bg-white z-20">
       <input
         onKeyDown={_handleKeyDown}
         value={search}
@@ -21,10 +18,12 @@ export const SearchinhBar = () => {
           setSearch(e.target.value);
         }}
         type="text"
-        className="focus:outline-0 w-[450px]"
+        className="focus:outline-0 w-full bg-white px-8"
         placeholder="Bạn tìm kiếm gì hôm nay ?"
       ></input>
-      <div className="border-l border-gray-300 pl-4"> Tìm kiếm</div>
+      <div className="px-2 flex items-center">
+        <span class="material-symbols-outlined ">search </span>
+      </div>
     </div>
   );
 };
